@@ -1,0 +1,30 @@
+<!-- app/templates/resume_bank.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Resume Bank</h2>
+
+    <!-- Form for Uploading Resume -->
+    <form action="{{ url_for('resume_bank') }}" method="post" enctype="multipart/form-data">
+        <input type="file" name="resumes" multiple required>
+    <button type="submit">Upload Resumes</button>
+    </form>
+
+    <hr>
+
+    <!-- List of Uploaded Resumes -->
+    <h3>Uploaded Resumes:</h3>
+    <ul>
+        {% for resume in resumes %}
+            <li>
+                {{ resume }}
+                <form action="{{ url_for('delete_resume_route', filename=resume) }}" method="post">
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+        {% else %}
+            <li>No resumes uploaded yet.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
