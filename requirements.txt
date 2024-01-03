@@ -1,0 +1,17 @@
+Flask
+Flask-CORS
+tensorflow
+scikit-learn
+pandas
+nltk
+SQLAlchemy
+Flask-SQLAlchemy
+alembic
+Flask-Login
+Flask-Bcrypt
+Flask-JWT-Extended
+pytest
+Flask-Testing
+python-dotenv
+requests
+gunicorn
