@@ -1,7 +1,6 @@
 import os
 from werkzeug.utils import secure_filename
 
-# Assuming you have these constants defined
 ALLOWED_EXTENSIONS = {'pdf', 'docx'}
 MAX_FILE_SIZE = 5 * 1024 * 1024  # 5 MB limit
 
@@ -9,9 +8,9 @@ def allowed_file(filename):
     """ Check if the file has an allowed extension """
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-def save_resume(file, upload_folder):
-    """ Save a resume file to the specified upload folder """
-    if not file:
+def save_file(file, upload_folder):
+    """ Save a file to the specified upload folder """
+    if not file or file.filename == '':
         return "No file provided."
     
     if file.content_length > MAX_FILE_SIZE:
@@ -29,11 +28,15 @@ def save_resume(file, upload_folder):
     except IOError as e:
         return f"An error occurred: {e}"
 
-def list_resumes(upload_folder):
-    """ List all resume files from the specified upload folder """
-    return os.listdir(upload_folder)
+def list_files(upload_folder):
+    """ List all files from the specified upload folder """
+    try:
+        return os.listdir(upload_folder)
+    except IOError as e:
+        return f"An error occurred while listing files: {e}"
 
-def delete_resume(filename, upload_folder):
+def delete_file(filename, upload_folder):
+    """ Delete a specific file from the specified upload folder """
     file_path = os.path.join(upload_folder, filename)
     if os.path.exists(file_path):
         try:
