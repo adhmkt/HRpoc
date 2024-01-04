@@ -25,7 +25,7 @@ def dashboard():
 @app.route('/resume_bank', methods=['GET', 'POST'])
 def resume_bank():
     if not os.path.exists(resume_folder):
-        os.makedirs(resume_folder)
+        os.makedirs(resume_folder, mode=0o755)
 
     if request.method == 'POST':
         files = request.files.getlist('resumes')
@@ -56,7 +56,7 @@ def delete_job_route(filename):
 @app.route('/job_bank', methods=['GET', 'POST'])
 def job_bank():
     if not os.path.exists(job_folder):
-        os.makedirs(job_folder)
+        os.makedirs(job_folder, mode=0o755)
 
     if request.method == 'POST':
         files = request.files.getlist('jobs')
